@@ -1,14 +1,18 @@
 from rest_framework import viewsets, status, permissions
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import CustomUser, BloodDonation
-from .serializers import BloodDonationSerializer, UserBloodDonationSerializer, BloodDonationPrediction
+from .serializers import BloodDonationSerializer, UserBloodDonationSerializer, BloodDonationPrediction, LoginSerializer
+from django.contrib.auth import authenticate, login
 from .predict import predict
 from datetime import datetime
+from rest_framework_simplejwt.views import TokenRefreshView
 
 class BloodDonationAPIView(APIView):
     queryset = BloodDonation.objects.all()
     serializer_class = BloodDonationSerializer
+    permission_classes = [permissions.IsAuthenticated]
     # permission_classes = [permissions.IsAuthenticated]
     def post(self, request):
         serializer = BloodDonationSerializer(data=request.data)
@@ -29,7 +33,7 @@ class BloodDonationAPIView(APIView):
 
 class AddBloodDonationDataAPIView(APIView):
     serializer_class = UserBloodDonationSerializer
-
+    permission_classes = [permissions.IsAuthenticated]
     def post(self, request):
         try:
             data = request.data["user"].copy()
@@ -53,8 +57,7 @@ class AddBloodDonationDataAPIView(APIView):
                     }, status=status.HTTP_400_BAD_REQUEST)
         
 class GetBloodDonationPrediction(APIView):
-    # serializer_class = BloodDonationPrediction
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         try:
             survey = request.GET.get("survey", "")
@@ -92,6 +95,7 @@ class GetBloodDonationPrediction(APIView):
                     }, status=status.HTTP_400_BAD_REQUEST)
         
 class GetSurveyNames(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         try:
             survey_names = BloodDonation.objects.values_list('survey', flat=True).distinct()
@@ -104,4 +108,25 @@ class GetSurveyNames(APIView):
                 'status': 'error',
                 'errors': str(e)
             }, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class LoginView(APIView):
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                refresh = RefreshToken.for_user(user)
+                access_token = refresh.access_token
+                return Response({'status': 'success', 'message': 'Login successful.', 'access': str(refresh.access_token), 'refresh': str(refresh)})
+            else:
+                return Response({'status': 'success', 'message': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class TokenRefreshAPIView(TokenRefreshView):
+    pass
         

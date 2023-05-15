@@ -11,5 +11,7 @@ urlpatterns = [
     path('predict/', views.BloodDonationAPIView.as_view(), name="predict"),
     path("add-details/", views.AddBloodDonationDataAPIView.as_view(), name="addDetails"),
     path("predict-all/", views.GetBloodDonationPrediction.as_view(), name="predictAll"),
-    path("get-surveys/", views.GetSurveyNames.as_view(), name="getSurveyNames")
+    path("get-surveys/", views.GetSurveyNames.as_view(), name="getSurveyNames"),
+    path("login/", views.LoginView.as_view(), name="api_login"),
+    path('token/refresh/', views.TokenRefreshAPIView.as_view(), name='token_refresh'),
 ]

@@ -61,3 +61,8 @@ class UserBloodDonationSerializer(serializers.Serializer):
     
 class BloodDonationPrediction(serializers.Serializer):
     survey = serializers.CharField()
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=150)
+    password = serializers.CharField(max_length=128, write_only=True)

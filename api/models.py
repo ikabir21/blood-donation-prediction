@@ -75,3 +75,4 @@ class BloodDonation(models.Model):
 
     def __str__(self):
         return f"{self.user.name}'s donation history"
+    

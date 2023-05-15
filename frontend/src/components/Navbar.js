@@ -26,7 +26,10 @@ export default function Navbar() {
           <Button color="primary" onClick={logout}><Typography variant="h5">Data</Typography></Button>
         </Link>
       </Grid><Grid item xs={3} sx={{ textAlign: "right" }}>
-          <Button color="primary" onClick={logout}><Typography variant="h5">Logout</Typography></Button>
+          <Button color="primary" onClick={() => {
+            localStorage.clear();
+            logout()
+          }}><Typography variant="h5">Logout</Typography></Button>
         </Grid></>)}
       
       

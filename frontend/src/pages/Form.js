@@ -43,6 +43,7 @@ export default function Form(props) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': "Bearer " + localStorage.getItem("accessToken")
         },
         body: JSON.stringify({
           first_donation_date: values.first_donation_date,
@@ -89,6 +90,7 @@ export default function Form(props) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': "Bearer " + localStorage.getItem("accessToken")
         },
         body: JSON.stringify({
           user: {
