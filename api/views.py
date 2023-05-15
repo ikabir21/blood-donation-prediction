@@ -22,7 +22,7 @@ class BloodDonationAPIView(APIView):
             probability = prediction[0][0]
             
             # Return the probability as a JSON response
-            return Response({'probability': probability})
+            return Response({'result': probability})
         else:
             # Return an error message if the input data is invalid
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -36,7 +36,6 @@ class AddBloodDonationDataAPIView(APIView):
             data.update(request.data["donation"])
             serializer = UserBloodDonationSerializer(data=data)
             if serializer.is_valid():
-                print("\nserializer1", serializer.validated_data, "\n")
                 serializer.save()
                 return Response({
                     'status': 'success',
@@ -55,7 +54,7 @@ class AddBloodDonationDataAPIView(APIView):
         
 class GetBloodDonationPrediction(APIView):
     # serializer_class = BloodDonationPrediction
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         try:
             survey = request.GET.get("survey", "")
