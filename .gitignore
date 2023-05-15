@@ -1,2 +1,3 @@
 venvapp/
 .DS_store
+node_modules/
