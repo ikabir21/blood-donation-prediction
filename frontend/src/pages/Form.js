@@ -22,6 +22,7 @@ export default function Form(props) {
   const [values, setValues] = useState({
     name: "",
     username: "",
+    gender:"",
     phone_number: "",
     blood_group: "",
     address: "",
@@ -140,7 +141,9 @@ export default function Form(props) {
       first_donation_date: "",
       last_donation_date: "",
       num_donations: "",
-      age: ""
+      age: "",
+      gender:""
+
     })
   }
 
@@ -157,6 +160,24 @@ export default function Form(props) {
           <div>
             <TextField sx={{ width: "100px" }} required value={values.age} name="age" onChange={onChange} label="Age" variant="outlined" />
           </div>
+          <FormControl sx={{ width: "100%", mb: 3 }} error={Boolean(errors?.["gender"])}>
+            <InputLabel id="demo-simple-select-label" name="gender" sx={{ width: "100%", textAlign: 'left' }}>Gender</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              sx={{ width: "100%",textAlign:"left" }}
+              label="Gender"
+              name="gender"
+              value={values.gender}
+              onChange={onChange}
+            >
+              <MenuItem value={'Male'}>Male</MenuItem>
+              <MenuItem value={"Female"}>Female</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem>
+            </Select>
+            {errors?.["gender"] && <FormHelperText>{errors?.["gender"]?.[0]}</FormHelperText>}
+          </FormControl>
+          
           <div>
             <TextField sx={{ width: "100px" }} required value={values.phone_number} onChange={onChange} name="phone_number" label="Phone No" variant="outlined" error={Boolean(errors?.["phone_number"])} />
             {errors?.["phone_number"] && <FormHelperText>{errors?.["phone_number"]?.[0]}</FormHelperText>}
@@ -174,7 +195,7 @@ export default function Form(props) {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              sx={{ width: "100%" }}
+              sx={{ width: "100%",textAlign:"left"}}
               label="Blood Group"
               name="blood_group"
               value={values.blood_group}
@@ -203,13 +224,6 @@ export default function Form(props) {
             <TextField sx={{ width: "100px" }} InputLabelProps={{ shrink: true }} required name="last_donation_date" onChange={onChange} value={values.last_donation_date} label="Last donation date" type="date" variant="outlined" error={Boolean(errors?.["last_donation_date"])} />
             {errors?.["last_donation_date"] && <FormHelperText>{errors?.["last_donation_date"]?.[0]}</FormHelperText>}
           </div>
-
-          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-       <DemoContainer components={['DatePicker']}>
-         <DatePicker onChange={onChange} name="first_donation_date" value={values.first_donation_date} label="First donation date" />
-         <DatePicker onChange={onChange} name="last_donation_date" value={values.last_donation_date} label="Last donation date" />
-       </DemoContainer>
-     </LocalizationProvider> */}
           {isLogin && (<Button variant="outlined" onClick={handlePredictDonation} sx={{ width: "100%", }}>Generate</Button>)}
           <Button variant="contained" type="submit" sx={{ width: "100%", }}>Submit</Button>
         </form>

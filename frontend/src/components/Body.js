@@ -11,6 +11,9 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 
 import Img from '../assets/images/illustration.png';
+import Step1 from '../assets/images/step1.png'
+import Step2 from '../assets/images/step2.png'
+import Step3 from '../assets/images/step3.png'
 import CContainer from './CContainer';
 
 const style = {
@@ -109,14 +112,13 @@ export default function Body() {
                   Create survey
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "18px" }}>
-                  The first step is to create a survey which gets you blood donation details 
-                  of people. After naming survey,
+                The first step is to create a survey which collects the blood donation details of people. Once the survey is created, a link will be generated that can be shared with the target audience.  
                 </Typography>
               </Box>
               <Box
                 xs={9}
                 component="img"
-                src={Img}
+                src={Step1}
                 sx={{
                   height: { md: 350 },
                   display: { xs: "none", md: "block" },
@@ -128,7 +130,7 @@ export default function Body() {
               <Box
                 xs={9}
                 component="img"
-                src={Img}
+                src={Step2}
                 sx={{
                   height: { md: 350 },
                   display: { xs: "none", md: "block" },
@@ -144,9 +146,7 @@ export default function Body() {
                   Circulate survey form
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "18px" }}>
-                  Next step is to join a queue. Joining a queue can be done by scanning the QR of
-                  the queue or just by searching it on the VQ platform. VQ will let you know about
-                  the expected time you have to wait for your turn.
+                In this step, the survey link should be circulated to the target people and their response collected. This can be done through various means such as social media, email, or by physically distributing printed copies of the survey. Once the survey responses have been collected, they can be compiled and analyzed to determine the probability of each person being a potential blood donor.
                 </Typography>
               </Box>
             </Box>
@@ -162,15 +162,13 @@ export default function Body() {
                   Generate prediction table
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: "18px" }}>
-                  That&apos;s it. Now you have got into the queue without standing in the real
-                  queue. Now you got the waiting time. You can visit only when it&apos;s your turn
-                  at your own comfort.
+                The last step is to generate the probability table which contains the contact details of people and their probability of donating blood. Each person who responded to the survey, as well as their probability of donating blood.The probability table can then be used to reach out to potential blood donors and request their participation in blood donation drives or campaigns. 
                 </Typography>
               </Box>
               <Box
                 xs={9}
                 component="img"
-                src={Img}
+                src={Step3}
                 sx={{
                   height: { md: 400 },
                   display: { xs: "none", md: "block" },

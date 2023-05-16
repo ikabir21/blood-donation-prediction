@@ -7,19 +7,23 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
 
 import CContainer from '../components/CContainer';
 import Navbar from '../components/Navbar';
 
 export default function Result() {
   const location = useLocation();
-  const { name } = location.state;
+  // const { name } = location.state;
 
+  const name="hoste 6"
   const [data, setData] = react.useState([])
   const [survey, setSurvey] = react.useState("")
-
+  const potentialDonors=34
+  const groupProbability=57
   const fetchSurveys = async (d) => {
     try {
       const params = new URLSearchParams();
@@ -90,6 +94,14 @@ export default function Result() {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Box sx={{width:"50vw",m:"20px auto"}}>
+        <Stack sx={{background:"white",p:2,borderRadius:"4px",boxShadow:"10px 10px 10px grey"}}>
+          <Typography sx={{display:"inline-block",textAlign:"center"}} variant="h5">Group Results</Typography>
+          <Typography sx={{display:"inline-block"}} variant='body1' ><span style={{fontWeight:"bold"}}>Potential Donors:</span>{" "+potentialDonors}</Typography>
+          <Typography sx={{display:"inline-block"}} variant='body1' ><span style={{fontWeight:"bold"}}>Group Probability:</span>{" "+groupProbability+'%'}</Typography>
+        </Stack>
+      </Box>
     </CContainer>
   </>)
 }
